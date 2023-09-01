@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="SERVER" basedir="." default="all">
+	<property name="Home_Deploy" value="C:/Temp/DeployFiles" />
+	<property name="Home_SERVER" value="D:/dev/workspace/CouponServer" />
+	<property name="Deploy_WEB-INF" value="D:/dev/workspace/CouponServer/build" />
+
+	<property name="src" value="src" />
+	<property name="build" value="build" />
+	<property name="classes" value="bin" />
+	<property name="classes2" value="classes" />
+
+	<property name="JarName_SERVER" value="kr.co.smenglish.couponmgr.jar" />
+
+	<target name="init" depends="clean" description="초기화 작업 수행">
+		<echo message="Make all directories to DeployHome." />
+		<mkdir dir="${Home_Deploy}" />
+		<mkdir dir="${Home_Deploy}/${build}" />
+	</target>
+
+	<target name="clean" description="전체 파일 삭제">
+		<echo message="Delete all files." />
+		<delete dir="${Home_Deploy}" />
+	</target>
+
+	<target name="copy_classes" depends="init"
+		description="SERVER Jar파일 작성을 위한 클래스파일 복사">
+		<echo message="Copy classes." />
+		<copy todir="${Home_Deploy}/${build}" overwrite="true">
+			<fileset dir="${Home_SERVER}/${classes}">
+				<exclude name="**/blb/**" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="create_jar" depends="copy_classes"
+		description="SERVER JAR파일 생성">
+		<echo message="Create ${JarName_SERVER} file." />
+		<jar jarfile="${Home_Deploy}/${build}/${JarName_SERVER}" compress="true"
+			update="false">
+			<fileset dir="${Home_Deploy}/${build}" />
+		</jar>
+
+		<echo message="Deploy ${JarName_SERVER} file." />
+		<copy todir="${Deploy_WEB-INF}" overwrite="true"
+			file="${Home_Deploy}/${build}/${JarName_SERVER}" />
+
+		<echo message="Delete HIR class file." />
+		<!--<delete dir="${Home_Deploy}/${build}" />-->
+	</target>
+
+	<target name="copy_all" description="배포를 위한 모든 파일 복사">
+		<echo message="Copy files." />
+		<copy todir="${Home_Deploy}" overwrite="true">
+			<fileset dir="${Home_SERVER}">
+				<exclude name="**/cvs/**" />
+				<exclude name="**/classes/**" />
+				<exclude name="**/META-INF/**" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="all">
+		<antcall target="clean" />
+		<antcall target="create_jar" />
+		<!-- <antcall target="copy_all" /> -->
+	</target>
+
+</project>
+

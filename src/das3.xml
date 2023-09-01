@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<das3>
+	<db name="EN" type="1">
+		<!-- <driverClassName>oracle.jdbc.driver.OracleDriver</driverClassName>
+		<url>jdbc:oracle:thin:@222.234.3.229:1521:SME01</url>
+		<username>sme_real</username>
+		<password>gjrmsm2012$#</password> -->
+		
+		
+		<driverClassName>oracle.jdbc.driver.OracleDriver</driverClassName>
+		<url>jdbc:oracle:thin:@175.115.51.207:1521:SME01</url>
+		<username>sme_real</username>
+		<password>smdktp#@1ora</password>
+
+		<minIdle>5</minIdle>
+		<maxActive>50</maxActive>
+		<maxWait>10000</maxWait>
+
+		<poolPreparedStatements>false</poolPreparedStatements>
+		<maxOpenPreparedStatements>300</maxOpenPreparedStatements>
+
+		<removeAbandoned>true</removeAbandoned>
+		<removeAbandonedTimeout>30</removeAbandonedTimeout>
+		<logAbandoned>true</logAbandoned>
+	</db>
+</das3>

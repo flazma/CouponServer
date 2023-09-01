@@ -1,0 +1,10 @@
+*.driveupload
+*.tern-project
+*.zip
+*.png
+.settings/
+/bin/
+*.bak
+*.class
+pom.properties
+
